@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% import from %}
+
+{% block content %}
+    {% for post in object_list %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+          </div>
+          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.body }}</p>
+        </div>
+    </article>
+    {% endfor %}
+{% endblock %}
