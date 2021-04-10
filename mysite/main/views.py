@@ -16,6 +16,10 @@ def home(request):
     return render(request, 'main/home.html', context={'tip': Tip.get_a_tip()})
 
 
+def about(request):
+    return render(request, 'main/about.html', context={'tip': Tip.get_a_tip()})
+
+
 class PostListView(ListView):
     model = Post
     ordering = ['-pub_date']
