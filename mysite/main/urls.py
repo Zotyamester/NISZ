@@ -19,5 +19,6 @@ urlpatterns = [
          views.CommentUpdateView.as_view(), name='comment-update'),
     path('comment/<int:pk>/delete/',
          views.CommentDeleteView.as_view(), name='comment-delete'),
-    path('jitsi/', views.jitsi, name='jitsi'),
+    path('videochat/', views.videochat, name='videochat'),
+    path('jitsi/<str:room>', views.jitsi, name='jitsi'),
 ]

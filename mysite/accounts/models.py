@@ -1,5 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.shortcuts import reverse
+from django.utils import timezone
 from PIL import Image
 
 
@@ -15,3 +17,20 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='owned_groups')
+    users = models.ManyToManyField(User, through='UserGroup')
+
+    def get_absolute_url(self):
+        return reverse('group-detail', kwargs={'pk': self.pk})
+
+
+class UserGroup(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='usergroups')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    join_date = models.DateField(default=timezone.now)
