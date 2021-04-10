@@ -22,7 +22,9 @@
                     <a class="nav-item nav-link" href="{% url 'main:home' %}">Kezdőlap</a>
                     <a class="nav-item nav-link" href="{% url 'main:post-list' %}">Posztok</a>
                     <a class="nav-item nav-link" href="{% url 'main:about' %}">Rólunk</a>
+                    {% if user.is_authenticated %}
                     <a class="nav-item nav-link" href="{% url 'main:jitsi' %}">Videóhívás</a>
+                    {% endif %}
                 </div>
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
