@@ -108,3 +108,5 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+def jitsi(request):
+    return render(request, 'main/jitsi.html', context={'email':request.user.email, 'username': request.user.username})
