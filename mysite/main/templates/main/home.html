@@ -1,5 +1,20 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <h1 class="display-1">Helló, Világ!</h1>
+    <h1 class="display-1 mb-4">Helló, Világ!</h1>
+    {% if tip %}
+        <div class="row">
+            <div class="col-1 m-0 p-0">
+                <i class="h1 far fa-lightbulb m-0 p-0"></i>
+            </div>
+            <div class="col-11">
+                <blockquote class="border-left pl-3 blockquote">
+                    {{ tip.text }}
+                    <footer class="blockquote-footer">
+                        Én
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
