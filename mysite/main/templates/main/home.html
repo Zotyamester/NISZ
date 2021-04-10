@@ -1,17 +1,33 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <h1 class="display-1 mb-4">Helló, Világ!</h1>
+    <h1 class="display-1 mb-4 text-center">Helló, Világ!</h1>
     {% if tip %}
-        <div class="row">
-            <div class="col-1 m-0 p-0">
-                <i class="h4 far fa-lightbulb m-0 py-1 float-right"></i>
+        <div class="row w-50">
+            <div class="col-6 text-center pr-1 align-middle" style="height: 100%; padding-top:0; padding-bottom: 0; margin-top: auto; margin-bottom: auto;">
+                <i class="h4 far fa-lightbulb pb-2 float-right" id="lightbulb" onmouseover="turnOn();" onmouseout="turnOff();"></i>
             </div>
-            <div class="col-11">
-                <blockquote class="border-left pl-3 blockquote">
+            <div class="col-6 text-center align-middle" style="height: 100%; padding-top:0; padding-bottom: 0; margin-top: auto; margin-bottom: auto;">
+                <blockquote class="border-left pl-3 blockquote float-left">
                     {{ tip.text }}
                 </blockquote>
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function turnOn() {
+            console.log('asd');
+            $('#lightbulb').removeClass('far');
+            $('#lightbulb').addClass('fas');
+        }
+        
+        function turnOff() {
+            console.log('lol');
+            $('#lightbulb').removeClass('fas');
+            $('#lightbulb').addClass('far');
+        }
+    </script>
 {% endblock %}

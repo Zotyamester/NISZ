@@ -9,8 +9,8 @@
                     <a class="ml-1" href="{% url 'main:user-post-list' post.author.username %}"><strong class="text-info">{{ post.author }}</strong></a>
                 </div>
                 <div class="card-body p-2">
-                    <a href="{% url 'main:post-detail' post.id %}" class="text-dark"><h2>{{ post.title }}</h2></a>
-                    <p>{{ post.body|slice:":170" }}{% if post.body|length > 170 %}...{% endif %}</p>
+                    <a href="{% url 'main:post-detail' post.id %}" class="text-dark"><h5 class="card-title">{{ post.title }}</h5></a>
+                    <p class="card-text">{{ post.body|slice:":170" }}{% if post.body|length > 170 %}...{% endif %}</p>
                 </div>
             </div>
         </article>
