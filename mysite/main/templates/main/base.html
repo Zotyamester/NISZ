@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="{% url 'main:home' %}">Kezdőlap</a>
-                    <a class="nav-item nav-link" href="{% url 'main:posts' %}">Posztok</a>
+                    <a class="nav-item nav-link" href="{% url 'main:post-list' %}">Posztok</a>
                 </div>
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
