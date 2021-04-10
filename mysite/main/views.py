@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment, Tip
+from .models import Post, Comment, Tip, Topic
 from .forms import CommentForm
 
 
@@ -23,19 +23,29 @@ def about(request):
 class PostListView(ListView):
     model = Post
     ordering = ['-pub_date']
+    paginate_by = 3
 
 
 class UserPostListView(ListView):
     model = Post
     template_name = 'main/user_post_list.html'
+    ordering = ['-pub_date']
+    paginate_by = 3
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user)
 
 
-class PostDetailView(DetailView):
+class TopicPostListView(ListView):
     model = Post
+    template_name = 'main/topic_post_list.html'
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get_queryset(self):
+        topic = get_object_or_404(Topic, name=self.kwargs.get('topic'))
+        return Post.objects.filter(topic=topic)
 
 
 def post_detail(request, pk):
@@ -108,5 +118,6 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
 def jitsi(request):
-    return render(request, 'main/jitsi.html', context={'email':request.user.email, 'username': request.user.username})
+    return render(request, 'main/jitsi.html', context={'email': request.user.email, 'username': request.user.username})

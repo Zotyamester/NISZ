@@ -1,23 +1,23 @@
 {% extends 'main/base.html' %}
 
 {% block javascript %}
-<script src='https://meet.jit.si/external_api.js'></script>
-<script>
-    const domain = 'meet.jit.si';
-    const options = {
-        roomName: 'JitsiMeetAPIExample',
-        width: 700,
-        height: 700,
-        parentNode: document.querySelector('#jitsi'),
-        startWithAudioMuted: true,
-        userInfo: {
-            email: '{{ email }}',
-            displayName: '{{ username }}'
-        }
-    };
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script>
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName: 'JitsiMeetAPIExample',
+            width: 700,
+            height: 700,
+            parentNode: document.querySelector('#jitsi'),
+            startWithAudioMuted: true,
+            userInfo: {
+                email: '{{ email }}',
+                displayName: '{{ username }}'
+            }
+        };
 
-    var api = new JitsiMeetExternalAPI(domain, options);
-</script>
+        var api = new JitsiMeetExternalAPI(domain, options);
+    </script>
 {% endblock %}
 {% block content %}
     <div id="jitsi" class="text-center"></div>

@@ -29,6 +29,9 @@ class Comment(models.Model):
     text = models.TextField()
     pub_date = models.DateField(default=timezone.now)
 
+    class Meta:
+        ordering = ['-pub_date', 'author']
+
     def get_absolute_url(self):
         return reverse('main:post-detail', kwargs={'pk': self.pk}) + '#comment-' + self.pk
 
