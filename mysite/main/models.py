@@ -17,3 +17,7 @@ class Comment(models.Model):
 
 class Tip(models.Model):
     text = models.TextField()
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = models.TextField()
