@@ -7,11 +7,11 @@
 
         {{ form|crispy }}
 
-        <button type="submit" class="btn btn-block btn-success"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+        <button type="submit" class="btn btn-block btn-success"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</button>
 
         <p class="mt-2 text-center">
-            <a href="{% url 'password_reset' %}">Reset password</a><br>
-            <a href="{% url 'register' %}">Sign up</a><br>
+            <a href="{% url 'password_reset' %}">Jelszó visszaállítása</a><br>
+            <a href="{% url 'register' %}">Regisztráció</a><br>
         </p>
     </form>
 {% endblock %}

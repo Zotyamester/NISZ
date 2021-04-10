@@ -12,7 +12,7 @@ def register(request):
     if request.method == 'POST':
         if form.is_valid():
             user = form.save()
-            messages.success(request, 'Your account has been created.')
+            messages.success(request, 'A fiók létrejött.')
             login(request, user)
             return redirect('main:home')
     return render(request, 'registration/register.html', {'form': form})
