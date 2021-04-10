@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'c10sqldb',
         'USER': 'c10sql',
         'PASSWORD': 'eyycVqCS!V98',
-        'HOST': 'csapat10-versenydonto.nisz.hu',
+        'HOST': 'versenydonto.nisz.hu',
         'PORT': '3306',
     }
 }
