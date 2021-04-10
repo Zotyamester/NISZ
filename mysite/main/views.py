@@ -10,9 +10,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from .models import Post, Comment, Tip, Topic
 from .forms import CommentForm, VideochatCodeForm
-from random_word import RandomWords
-
-r = RandomWords()
 
 
 def home(request):
@@ -122,6 +119,7 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         comment = self.get_object()
         return self.request.user == comment.author
 
+
 def videochat(request):
     if request.method == 'POST':
         form = VideochatCodeForm(request.POST)
@@ -132,5 +130,6 @@ def videochat(request):
         form = VideochatCodeForm()
     return render(request, 'main/videochat.html', context={'form': form})
 
+
 def jitsi(request, room):
-    return render(request, 'main/jitsi.html', context={'room': room,'email': request.user.email, 'username': request.user.username})
+    return render(request, 'main/jitsi.html', context={'room': room, 'email': request.user.email, 'username': request.user.username})
