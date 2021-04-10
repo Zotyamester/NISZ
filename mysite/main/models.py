@@ -10,6 +10,8 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     body = models.TextField()
 
+    pub_date = models.DateField('date published')
+
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
