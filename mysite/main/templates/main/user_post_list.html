@@ -1,7 +1,6 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <a href="{% url 'main:post-create' %}" class="btn btn-primary">Új poszt létrehozása</a>
     {% for post in object_list %}
         <article class="media content-section">
             <div class="media-body">

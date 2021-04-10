@@ -5,9 +5,11 @@ from django.views.generic import (
     CreateView, UpdateView, DeleteView
 )
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Comment
+from .forms import CommentForm
 
 
 def home(request):
@@ -30,6 +32,12 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    form = CommentForm()
+    return render(request, 'main/post_detail.html', context={'object': post, 'form': form})
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -61,3 +69,36 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         Post = self.get_object()
         return self.request.user == Post.author
+
+@login_required
+def comment(request, pk):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=pk)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.instance.author = request.user
+            form.instance.post = post
+            form.save()
+            messages.success(request, 'Komment léterhozva.')
+    return redirect('main:post-detail', pk=pk)
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    success_url = '/'
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author

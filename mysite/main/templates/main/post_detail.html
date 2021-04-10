@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="content-section">
@@ -8,10 +8,45 @@
             <p class="text-muted mb-1">Szerző: <a href="{% url 'main:user-post-list' object.author.username %}">{{ object.author.username }}</a></p>
             <div class="badge badge-pill badge-info">{{ object.topic.name }}</div>
         </div>
-        <p>{{ object.body }}</p>
+        <p class="p-1 rounded bg-light">{{ object.body }}</p>
         {% if object.author == user %}
-            <a href="{% url 'main:post-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Update post</a>
-            <a href="{% url 'main:post-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Delete post</a>
+            <a href="{% url 'main:post-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Módosítás</a>
+            <a href="{% url 'main:post-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Törlés</a>
         {% endif %}
+    </div>
+    <div class="comment-section">
+        <div class="border-bottom mb-4">
+            <h2 class="mb-1">Hozzászólások</h2>
+        </div>
+        <div class="my-4 pt-3 pb-5 px-3 jumbotron">
+            {% if user.is_authenticated %}
+                <form action="{% url 'main:post-comment' object.id %}" method="POST">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary float-right">Hozzászólás</button>
+                </form>
+            {% else %}
+                A kommenteléshez <a href="{% url 'login' %}?next={{ request.path }}">jelentkezzen be</a> vagy <a href="{% url 'register' %}">regisztráljon</a>!
+            {% endif %}
+        </div>
+        {% for comment in object.comments.all %}
+            <div id="comment-{{ comment.id }}" class="border border-secondary rounded px-3">
+                <h4 class="mb-1">
+                    {{ comment.author.username }}
+                    {% if comment.author == object.author %}
+                        <small class="fas fa-check-square"></small>
+                    {% endif %}
+                </h4>
+                <p class="p-1 rounded bg-light">{{ comment.text }}</p>
+                {% if comment.author == user %}
+                    <a href="{% url 'main:comment-update' object.id %}" class="text-secondary"><i class="far fa-edit"></i> Módosítás</a>
+                    <a href="{% url 'main:comment-delete' object.id %}" class="text-danger"><i class="far fa-trash-alt"></i> Törlés</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p class="text-muted">Még senki nem szólt hozzá.</p>
+        {% endfor %}
     </div>
 {% endblock %}
