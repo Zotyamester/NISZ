@@ -8,12 +8,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment
+from .models import Post, Comment, Tip
 from .forms import CommentForm
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    return render(request, 'main/home.html', context={'tip': Tip.get_a_tip()})
 
 
 class PostListView(ListView):
@@ -70,6 +70,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         Post = self.get_object()
         return self.request.user == Post.author
 
+
 @login_required
 def comment(request, pk):
     if request.method == 'POST':
@@ -81,6 +82,7 @@ def comment(request, pk):
             form.save()
             messages.success(request, 'Komment léterhozva.')
     return redirect('main:post-detail', pk=pk)
+
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment

@@ -32,7 +32,7 @@
             {% endif %}
         </div>
         {% for comment in object.comments.all %}
-            <div id="comment-{{ comment.id }}" class="border border-secondary rounded px-3">
+            <div id="comment-{{ comment.id }}" class="border border-secondary rounded px-3 my-2">
                 <h4 class="mb-1">
                     {{ comment.author.username }}
                     {% if comment.author == object.author %}
@@ -46,7 +46,7 @@
                 {% endif %}
             </div>
         {% empty %}
-            <p class="text-muted">Még senki nem szólt hozzá.</p>
+            <i class="text-muted">Még senki nem szólt hozzá.</i>
         {% endfor %}
     </div>
 {% endblock %}
