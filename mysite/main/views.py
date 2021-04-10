@@ -6,6 +6,7 @@ from .models import Post
 
 class PostListView(generic.ListView):
     model = Post
+    ordering = ['-pub_date']
 
 def home(request):
     return render(request, 'main/home.html')

@@ -9,8 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=300)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     body = models.TextField()
-
-    pub_date = models.DateField('date published')
+    pub_date = models.DateField('date published', null=True)
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
