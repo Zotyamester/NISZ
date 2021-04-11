@@ -78,23 +78,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-'''
-DATABASES = {
-    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'c10sqldb',
         'USER': 'c10sql',
         'PASSWORD': 'eyycVqCS!V98',
-        'HOST': 'versenydonto.nisz.hu',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
