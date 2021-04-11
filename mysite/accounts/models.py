@@ -28,6 +28,12 @@ class Group(models.Model):
     def get_absolute_url(self):
         return reverse('group-detail', kwargs={'pk': self.pk})
 
+    def get_member(self, user):
+        return UserGroup.objects.filter(user=user, group=self).first()
+
+    def user_is_member(self, user):
+        return self.get_member(user) != None
+
 
 class UserGroup(models.Model):
     user = models.ForeignKey(

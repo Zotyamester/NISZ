@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from .forms import ProfileUpdateForm, UserRegisterForm, UserUpdateForm
-from .models import Group
+from .models import Group, UserGroup
 
 
 @login_required
@@ -50,20 +50,46 @@ def register(request):
 
 class GroupListView(ListView):
     model = Group
+    ordering = ['name']
+    paginate_by = 8
 
 
-class GroupDetailView(ListView):
+class GroupDetailView(DetailView):
     model = Group
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_member'] = self.request.user.is_authenticated and self.object.user_is_member(
+            self.request.user)
+        return context
 
+
+@login_required
+def group_leave(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if request.user != group.owner:
+        conn = group.get_member(request.user)
+        if conn != None:
+            conn.delete()
+            messages.success(request, 'Sikeresen elhagyta a csoportot.')
+    return redirect('group-list')
+
+
+@login_required
 def group_join(request, pk):
-    group = get_object_or_404(group, pk=pk)
+    group = get_object_or_404(Group, pk=pk)
+    if request.user != group.owner:
+        conn = group.get_member(request.user)
+        if conn == None:
+            conn = UserGroup(user=request.user, group=group)
+            conn.save()
+            messages.success(request, 'Sikeresen csatlakozott a csoporthoz.')
     return redirect(group)
 
 
 class GroupCreateView(LoginRequiredMixin, CreateView):
     model = Group
-    fields = ['title', 'topic', 'body']
+    fields = ['name']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -72,10 +98,10 @@ class GroupCreateView(LoginRequiredMixin, CreateView):
 
 class GroupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Group
-    fields = ['title', 'topic', 'body']
+    fields = ['name']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.owner = self.request.user
         return super().form_valid(form)
 
     def test_func(self):

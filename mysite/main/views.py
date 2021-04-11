@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.views.generic import (
     ListView, DetailView,
@@ -8,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment, Tip, Topic, FAQ
+from .models import Post, Comment, Tip, Topic, FAQ, About
 from .forms import CommentForm, VideochatCodeForm
 
 
@@ -21,7 +20,7 @@ def faq(request):
 
 
 def about(request):
-    return render(request, 'main/about.html', context={'tip': Tip.get_a_tip()})
+    return render(request, 'main/about.html', context={'about': About.objects.all()})
 
 
 class PostListView(ListView):
