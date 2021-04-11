@@ -41,7 +41,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'A fiók létrejött')
+            messages.success(request, 'A fiók létrejött.')
             return redirect('login')
     else:
         form = UserRegisterForm()

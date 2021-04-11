@@ -1,17 +1,14 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Komment törlése</legend>
-                <h2>Biztosan törölné szeretné a kommentet?</h2>
-            </fieldset>
-            <div class="form-group">
-                <button type="submit" class="btn btn-outline-danger">Igen</button>
-                <a href="{% url 'main:post-detail' object.id %}" class="btn btn-outline-secondary">Mégsem</a>
-            </div>
-        </form>
-    </div>
+    <h2 class="text-center">Csoportok</h2>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Biztosan törölné szeretné a kommentet?</h3>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-danger">Igen</button>
+            <a href="{% url 'main:post-detail' object.id %}" class="btn btn-outline-secondary">Mégsem</a>
+        </div>
+    </form>
 {% endblock %}

@@ -1,13 +1,12 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+    <h2 class="text-center">Csoport törlése</h2>
+    <hr>
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Csoport törlése</legend>
-                <h2>Biztosan törölné szeretné a csoportot?</h2>
-            </fieldset>
+            <h3>Biztosan törölné szeretné a csoportot?</h3>
             <div class="form-group">
                 <button type="submit" class="btn btn-outline-danger">Igen</button>
                 <a href="{% url 'main:post-detail' object.id %}" class="btn btn-outline-secondary">Mégsem</a>

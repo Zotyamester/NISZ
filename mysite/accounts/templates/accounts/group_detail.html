@@ -1,26 +1,24 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="content-section">
-        <div class="border-bottom mb-4">
-            <h2 class="mb-1">{{ object.name }}</h2>
-            <p class="text-muted mb-1 ">Tulajdonos: {{ object.owner.username }}</p>
-            <p class="text-muted mb-1">Tagok száma: {{ object.users.count }}</p>
-        </div>
-        
-        {% if object.owner == user %}
-            <a href="{% url 'group-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Módosítás</a>
-            <a href="{% url 'group-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Törlés</a>
-        {% elif is_member %}
-            <form action="{% url 'group-leave' object.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-warning">Elhagyás</button>
-            </form>
-        {% else %}
-            <form action="{% url 'group-join' object.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-success">Csatlakozás</button>
-            </form>
-        {% endif %}
+    <div class="border-bottom mb-4">
+        <h2 class="mb-1">{{ object.name }}</h2>
+        <p class="text-muted mb-1 ">Tulajdonos: {{ object.owner.username }}</p>
+        <p class="text-muted mb-1">Tagok száma: {{ object.users.count }}</p>
     </div>
+    
+    {% if object.owner == user %}
+        <a href="{% url 'group-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Módosítás</a>
+        <a href="{% url 'group-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Törlés</a>
+    {% elif is_member %}
+        <form action="{% url 'group-leave' object.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-warning">Elhagyás</button>
+        </form>
+    {% else %}
+        <form action="{% url 'group-join' object.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-success">Csatlakozás</button>
+        </form>
+    {% endif %}
 {% endblock %}
