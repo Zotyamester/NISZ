@@ -8,12 +8,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment, Tip, Topic
+from .models import Post, Comment, Tip, Topic, FAQ
 from .forms import CommentForm, VideochatCodeForm
 
 
 def home(request):
     return render(request, 'main/home.html', context={'tip': Tip.get_a_tip()})
+
+
+def faq(request):
+    return render(request, 'main/faq.html', context={'faq': FAQ.objects.all()})
 
 
 def about(request):

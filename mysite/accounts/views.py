@@ -50,3 +50,43 @@ def register(request):
 
 class GroupListView(ListView):
     model = Group
+
+
+class GroupDetailView(ListView):
+    model = Group
+
+
+def group_join(request, pk):
+    group = get_object_or_404(group, pk=pk)
+    return redirect(group)
+
+
+class GroupCreateView(LoginRequiredMixin, CreateView):
+    model = Group
+    fields = ['title', 'topic', 'body']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class GroupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Group
+    fields = ['title', 'topic', 'body']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        group = self.get_object()
+        return self.request.user == group.author
+
+
+class GroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Group
+    success_url = '/'
+
+    def test_func(self):
+        group = self.get_object()
+        return self.request.user == group.owner

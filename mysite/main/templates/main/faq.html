@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <h1 class="display-1">Gyakran Ismételt Kérdések</h1>
+    <hr>
+    {% for item in faq %}
+        <div>
+            <h2 class="h2 font-weight-bold text-dark bg-warning p-1 rounded">{{ forloop.counter }}. {{ item.question }}</h2>
+            <p class="ml-4 px-1 font-italic text-dark bg-light rounded">{{ item.answer }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
