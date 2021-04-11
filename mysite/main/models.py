@@ -14,7 +14,8 @@ class Topic(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
-    topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True, blank=True)
+    topic = models.ForeignKey(
+        Topic, on_delete=models.SET_NULL, null=True, blank=True)
     body = models.TextField()
     pub_date = models.DateField(default=timezone.now)
 
@@ -41,6 +42,11 @@ class Tip(models.Model):
 
     def get_a_tip():
         return Tip.objects.order_by('?').first()
+
+
+class About(models.Model):
+    heading = models.CharField(max_length=300)
+    paragraph = models.TextField()
 
 
 class FAQ(models.Model):
