@@ -12,4 +12,8 @@ urlpatterns = [
     path('password-reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('groups/', accounts_views.GroupListView.as_view(), name='group-list'),
+    path('group/<str:name>/', accounts_views.GroupDetailView.as_view(), name='group-detail'),
+    path('group/<str:name>/new', accounts_views.GroupDetailView.as_view(), name='group-detail'),
+    path('group/<str:name>/update', accounts_views.GroupUpdateView.as_view(), name='group-update'),
+    path('group/<str:name>/delete', accounts_views.GroupDeleteView.as_view(), name='group-delete'),
 ]

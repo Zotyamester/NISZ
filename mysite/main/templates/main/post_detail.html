@@ -5,8 +5,8 @@
     <div class="content-section">
         <div class="border-bottom mb-4">
             <h2 class="mb-1">{{ object.title }}</h2>
-            <p class="text-muted mb-1">Szerző: <a href="{% url 'main:user-post-list' object.author.username %}">{{ object.author.username }}</a></p>
-            <a href="{% url 'main:topic-post-list' object.topic.name %}"><div class="badge badge-pill badge-info">{{ object.topic.name }}</div></a>
+            <p class="text-muted mb-1">Szerző: <a href="{% url 'main:user-post-list' object.author.username %}" class="text-primary">{{ object.author.username }}</a></p>
+            <a href="{% url 'main:topic-post-list' object.topic.name %}"><div class="badge badge-pill badge-warning">{{ object.topic.name }}</div></a>
         </div>
         <p class="p-1 rounded bg-light">{{ object.body }}</p>
         {% if object.author == user %}
@@ -18,25 +18,25 @@
         <div class="border-bottom mb-4">
             <h2 class="mb-1">Hozzászólások</h2>
         </div>
-        <div class="my-4 pt-3 pb-5 px-3 jumbotron">
+        <div class="my-4 py-3 px-3 jumbotron">
             {% if user.is_authenticated %}
                 <form action="{% url 'main:post-comment' object.id %}" method="POST">
                     {% csrf_token %}
 
                     {{ form|crispy }}
 
-                    <button type="submit" class="btn btn-primary float-right">Hozzászólás</button>
+                    <button type="submit" class="btn btn-block btn-success">Hozzászólás</button>
                 </form>
             {% else %}
                 A kommenteléshez <a href="{% url 'login' %}?next={{ request.path }}">jelentkezzen be</a> vagy <a href="{% url 'register' %}">regisztráljon</a>!
             {% endif %}
         </div>
         {% for comment in object.comments.all %}
-            <div id="comment-{{ comment.id }}" class="border border-secondary rounded px-3 my-2">
+            <div id="comment-{{ comment.id }}" class="border border-secondary rounded px-4 py-1 my-2">
                 <h4 class="mb-1">
-                    {{ comment.author.username }}
+                    <a href="{% url 'main:user-post-list' comment.author.username %}" class="text-dark">{{ comment.author.username }}</a>
                     {% if comment.author == object.author %}
-                        <small class="fas fa-check-square"></small>
+                        <small class="fas fa-check-square text-primary"></small>
                     {% endif %}
                 </h4>
                 <p class="p-1 rounded bg-light">{{ comment.text }}</p>
@@ -48,5 +48,6 @@
         {% empty %}
             <i class="text-muted">Még senki nem szólt hozzá.</i>
         {% endfor %}
+        <br>
     </div>
 {% endblock %}

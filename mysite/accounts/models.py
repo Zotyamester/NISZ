@@ -20,7 +20,7 @@ class Profile(models.Model):
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='owned_groups')
     users = models.ManyToManyField(User, through='UserGroup')
