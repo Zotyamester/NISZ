@@ -39,6 +39,11 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['username'] = self.kwargs.get('username')
+        return context
+
 
 class TopicPostListView(ListView):
     model = Post
@@ -49,6 +54,12 @@ class TopicPostListView(ListView):
     def get_queryset(self):
         topic = get_object_or_404(Topic, name=self.kwargs.get('topic'))
         return Post.objects.filter(topic=topic)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['topic'] = self.kwargs.get('topic')
+        return context
+
 
 
 def post_detail(request, pk):
