@@ -1,6 +1,18 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<style>
+    .card-img-top{
+        border-radius: 15px 15px 0px 0px; 
+        box-shadow: 0 15px 25px  rgba(0, 0, 0, 0.2), 
+    }
+
+    div.card{
+        box-shadow: 0 15px 80px  rgba(0, 0, 0, 0.19);
+    }
+
+</style>
+
     <h1 class="display-1 mb-4 text-center">Helló, Világ!</h1>
     {% if tip %}
         <div class="d-flex align-items-center justify-content-center">
@@ -8,11 +20,59 @@
                 <div class="input-group-prepend" onmouseover="turnOn();" onmouseout="turnOff();">
                     <span class="input-group-text bg-light" id="lightbulb-outer"><i class="far fa-lightbulb" id="lightbulb"></i></span>
                 </div>
-                <input type="text" class="form-control font-weight-bold font-italic bg-light text-center" value="{{ tip.text }}" disabled>
+                <input type="text" class="form-control font-italic bg-light" value="{{ tip.text }}" disabled>
             </div>
         </div>
     {% endif %}
+    <br>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem; border-radius: 15px;">
+                <img src="https://emblemsbf.com/img/24106.webp" class="card-img-top" alt="prohardver">
+                <div class="card-body">
+                <h5 class="card-title">PROHARDVER</h5>
+                <p class="card-text">Magyarország egyik legrégibb és legsokrétűbb online tech magazinja</p>
+                <a href="https://prohardver.hu/index.html" class="btn btn-primary stretched-link" target="_blank">Ugrás</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem; border-radius: 15px;">
+                <img src="https://emblemsbf.com/img/24106.webp" class="card-img-top" alt="prohardver">
+                <div class="card-body">
+                <h5 class="card-title">PROHARDVER</h5>
+                <p class="card-text">Magyarország egyik legrégibb és legsokrétűbb online tech magazinja</p>
+                <a href="https://prohardver.hu/index.html" class="btn btn-primary stretched-link" target="_blank">Ugrás</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem; border-radius: 15px;">
+                <img src="https://emblemsbf.com/img/24106.webp" class="card-img-top" alt="prohardver">
+                <div class="card-body">
+                <h5 class="card-title">PROHARDVER</h5>
+                <p class="card-text">Magyarország egyik legrégibb és legsokrétűbb online tech magazinja</p>
+                <a href="https://prohardver.hu/index.html" class="btn btn-primary stretched-link" target="_blank">Ugrás</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem; border-radius: 15px;">
+                <img src="https://emblemsbf.com/img/24106.webp" class="card-img-top" alt="prohardver">
+                <div class="card-body">
+                <h5 class="card-title">MOBILARÉNA</h5>
+                <p class="card-text">Magyarország egyik legrégibb mobilágra specializálódott magazinja</p>
+                <a href="https://mobilarena.hu/index.html" class="btn btn-primary stretched-link" target="_blank">Ugrás</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
+
+
 
 {% block javascript %}
     <script>
