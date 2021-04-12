@@ -6,7 +6,6 @@
         <p class="text-muted mb-1 ">Tulajdonos: {{ object.owner.username }}</p>
         <p class="text-muted mb-1">Tagok száma: {{ object.users.count }}</p>
     </div>
-    
     {% if user.is_authenticated %}
         <a href="{% url 'main:jitsi' object.name %}" class="btn btn-outline-success">Csatlakozás a csoport videóhívásához</a>
         {% if object.owner == user %}
