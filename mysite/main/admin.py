@@ -18,6 +18,7 @@ class CommentAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     inlines = [CommentInline]
     list_display = ('id', 'author', 'title', 'pub_date')
+    list_display_links = ('id', 'title')
     list_filter = ['pub_date']
     search_fields = ['title']
 
@@ -25,4 +26,5 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Tip)
 admin.site.register(About)
+
 admin.site.register(FAQ)

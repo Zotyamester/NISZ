@@ -18,12 +18,18 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+    def __str__(self):
+        return self.user
+
 
 class Group(models.Model):
     name = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='owned_groups')
     users = models.ManyToManyField(User, through='UserGroup')
+
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse('group-detail', kwargs={'pk': self.pk})

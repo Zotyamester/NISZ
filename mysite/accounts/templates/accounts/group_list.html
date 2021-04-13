@@ -60,4 +60,8 @@
             </ul>
         </nav>
     {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'group-create' %}" class="btn btn-block btn-primary mt-3 mb-4">Új csoport létrehozása</a>
+    {% endif %}
 {% endblock %}

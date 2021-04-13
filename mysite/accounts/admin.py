@@ -3,4 +3,8 @@ from .models import Profile, Group, UserGroup
 
 admin.site.register(Profile)
 admin.site.register(Group)
-admin.site.register(UserGroup)
+
+class UserGroupAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'group', 'join_date')
+
+admin.site.register(UserGroup, UserGroupAdmin)

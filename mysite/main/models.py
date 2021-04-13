@@ -22,6 +22,9 @@ class Post(models.Model):
     class Meta:
         ordering = ['-pub_date', 'author']
 
+    def __str__(self):
+        return f'{self.title} - #{self.id}'
+
     def get_absolute_url(self):
         return reverse('main:post-detail', kwargs={'pk': self.pk})
 
@@ -59,3 +62,6 @@ class About(models.Model):
 class FAQ(models.Model):
     question = models.CharField(max_length=300)
     answer = models.TextField()
+
+    def __str__(self):
+        return self.question
