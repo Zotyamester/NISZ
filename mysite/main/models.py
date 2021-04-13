@@ -17,7 +17,10 @@ class Post(models.Model):
     topic = models.ForeignKey(
         Topic, on_delete=models.SET_NULL, null=True, blank=True)
     body = models.TextField()
-    pub_date = models.DateField(default=timezone.now)
+    pub_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-pub_date', 'author']
 
     def get_absolute_url(self):
         return reverse('main:post-detail', kwargs={'pk': self.pk})
@@ -28,7 +31,7 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
-    pub_date = models.DateField(default=timezone.now)
+    pub_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ['-pub_date', 'author']
@@ -40,6 +43,10 @@ class Comment(models.Model):
 class Tip(models.Model):
     text = models.TextField()
 
+    def __str__(self):
+        return self.text[:25]
+
+    @staticmethod
     def get_a_tip():
         return Tip.objects.order_by('?').first()
 

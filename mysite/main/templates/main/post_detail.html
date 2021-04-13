@@ -5,7 +5,10 @@
     <div class="border-bottom mb-4">
         <h2 class="mb-1">{{ object.title }}</h2>
         <p class="text-muted mb-1">Szerző: <a href="{% url 'main:user-post-list' object.author.username %}" class="text-primary">{{ object.author.username }}</a></p>
-        <a href="{% url 'main:topic-post-list' object.topic.name %}"><div class="badge badge-pill badge-warning">{{ object.topic.name }}</div></a>
+        <p class="text-muted mb-1">Létrehozva: {{ object.pub_date|date:"Y. m. d." }}</a></p>
+        {% if object.topic %}
+            <a href="{% url 'main:topic-post-list' object.topic.name %}"><div class="badge badge-pill badge-warning">{{ object.topic.name }}</div></a>
+        {% endif %}
     </div>
     <p class="p-1 rounded bg-light">{{ object.body }}</p>
     {% if object.author == user %}
@@ -42,6 +45,7 @@
                 <a href="{% url 'main:comment-update' object.id %}" class="text-secondary"><i class="far fa-edit"></i> Módosítás</a>
                 <a href="{% url 'main:comment-delete' object.id %}" class="text-danger"><i class="far fa-trash-alt"></i> Törlés</a>
             {% endif %}
+            <p class="text-muted float-right">{{ comment.pub_date }}</p>
         </div>
     {% empty %}
         <i class="text-muted">Még senki nem szólt hozzá.</i>
