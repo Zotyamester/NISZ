@@ -16,11 +16,11 @@ def home(request):
 
 
 def faq(request):
-    return render(request, 'main/faq.html', context={'faq': FAQ.objects.all()})
+    return render(request, 'main/faq.html', context={'faqs': FAQ.objects.all()})
 
 
 def about(request):
-    return render(request, 'main/about.html', context={'about': About.objects.all()})
+    return render(request, 'main/about.html', context={'abouts': About.objects.all()})
 
 
 class PostListView(ListView):
