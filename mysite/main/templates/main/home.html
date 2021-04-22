@@ -20,10 +20,10 @@
         <div class="d-flex align-items-center justify-content-center">
             <div class="input-group mb-3 w-50">
                 <div class="input-group-prepend" onmouseover="turnOn();" onmouseout="turnOff();">
-                    <span class="input-group-text bg-light" id="lightbulb-outer"><i class="far fa-lightbulb"
+                    <span class="input-group-text bg-light border" id="lightbulb-outer"><i class="far fa-lightbulb"
                             id="lightbulb"></i></span>
                 </div>
-                <input type="text" class="form-control font-weight-bold font-italic bg-light text-center" value="{{ tip.text }}"
+                <input type="text" class="form-control font-weight-bold font-italic bg-light border text-center" value="{{ tip.text }}"
                     disabled>
             </div>
         </div>
@@ -151,6 +151,7 @@
         $('#lightbulb').addClass('fas');
         $('#lightbulb-outer').removeClass('bg-light');
         $('#lightbulb-outer').addClass('bg-warning');
+        $('#lightbulb-outer').addClass('border-warning');
     }
 
     function turnOff() {
@@ -158,6 +159,7 @@
         $('#lightbulb').removeClass('fas');
         $('#lightbulb').addClass('far');
         $('#lightbulb-outer').removeClass('bg-warning');
+        $('#lightbulb-outer').removeClass('border-warning');
         $('#lightbulb-outer').addClass('bg-light');
     }
 </script>

@@ -42,8 +42,12 @@
             </h4>
             <p class="p-1 rounded bg-light">{{ comment.text }}</p>
             {% if comment.author == user %}
-                <a href="{% url 'main:comment-update' object.id %}" class="text-secondary"><i class="far fa-edit"></i> Módosítás</a>
-                <a href="{% url 'main:comment-delete' object.id %}" class="text-danger"><i class="far fa-trash-alt"></i> Törlés</a>
+                <a href="{% url 'main:comment-update' object.id %}" class="text-secondary">
+                    <i class="far fa-edit"></i> Módosítás
+                </a>
+                <a href="{% url 'main:comment-delete' object.id %}" class="text-danger">
+                    <i class="far fa-trash-alt"></i> Törlés
+                </a>
             {% endif %}
             <p class="text-muted float-right">{{ comment.pub_date }}</p>
         </div>
