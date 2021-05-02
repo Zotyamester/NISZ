@@ -23,7 +23,7 @@ class Post(models.Model):
         ordering = ['-pub_date', 'author']
 
     def __str__(self):
-        return f'{self.title} - #{self.id}'
+        return self.title + ' - #' + str(self.id)
 
     def get_absolute_url(self):
         return reverse('main:post-detail', kwargs={'pk': self.pk})
@@ -40,7 +40,7 @@ class Comment(models.Model):
         ordering = ['-pub_date', 'author']
 
     def get_absolute_url(self):
-        return reverse('main:post-detail', kwargs={'pk': self.pk}) + '#comment-' + self.pk
+        return reverse('main:post-detail', kwargs={'pk': self.post.pk}) + '#comment-' + str(self.pk)
 
 
 class Tip(models.Model):
