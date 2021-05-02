@@ -4,13 +4,17 @@
     <div class="border-bottom mb-4">
         <h2 class="mb-1">{{ object.name }}</h2>
         <p class="text-muted mb-1 ">Tulajdonos: {{ object.owner.username }}</p>
-        <p class="text-muted mb-1">Tagok száma: {{ object.users.count }}</p>
+        <p class="text-muted mb-1">Tagok száma: {{ object.users.count|add:"1" }}</p>
     </div>
     {% if user.is_authenticated %}
         <a href="{% url 'main:jitsi' object.name %}" class="btn btn-outline-success btn-sm mt-1 mb-1">Csatlakozás a csoport videóhívásához</a><br>
         {% if object.owner == user %}
-            <a href="{% url 'group-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Módosítás</a>
-            <a href="{% url 'group-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Törlés</a>
+            <a href="{% url 'group-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">
+                <i class="far fa-edit"></i> Módosítás
+            </a>
+            <a href="{% url 'group-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1">
+                <i class="far fa-trash-alt"></i> Törlés
+            </a>
         {% elif is_member %}
             <form action="{% url 'group-leave' object.id %}" method="POST">
                 {% csrf_token %}
