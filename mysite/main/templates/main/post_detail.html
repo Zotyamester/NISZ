@@ -37,7 +37,7 @@
             <h4 class="mb-1">
                 <a href="{% url 'main:user-post-list' comment.author.username %}" class="text-dark">{{ comment.author.username }}</a>
                 {% if comment.author == object.author %}
-                    <small class="fas fa-check-square text-primary"></small>
+                    <small class="fas fa-check-square text-primary" title="Szerző"></small>
                 {% endif %}
             </h4>
             <p class="p-1 rounded bg-light">{{ comment.text }}</p>
