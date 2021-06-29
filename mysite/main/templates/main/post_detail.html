@@ -10,7 +10,7 @@
             <a href="{% url 'main:topic-post-list' object.topic.name %}"><div class="badge badge-pill badge-warning">{{ object.topic.name }}</div></a>
         {% endif %}
     </div>
-    <p class="p-1 rounded bg-light">{{ object.body }}</p>
+    <p class="p-1 rounded bg-light">{{ object.body|linebreaksbr }}</p>
     {% if object.author == user %}
         <a href="{% url 'main:post-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1"><i class="far fa-edit"></i> Módosítás</a>
         <a href="{% url 'main:post-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1"><i class="far fa-trash-alt"></i> Törlés</a>
@@ -40,7 +40,7 @@
                     <small class="fas fa-check-square text-primary"></small>
                 {% endif %}
             </h4>
-            <p class="p-1 rounded bg-light">{{ comment.text }}</p>
+            <p class="p-1 rounded bg-light">{{ comment.text|linebreaksbr }}</p>
             {% if comment.author == user %}
                 <a href="{% url 'main:comment-update' comment.id %}" class="text-secondary">
                     <i class="far fa-edit"></i> Módosítás
