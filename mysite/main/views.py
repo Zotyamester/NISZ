@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment, Tip, Topic, FAQ, About
+from .models import Post, Comment, Tip, Topic
 from .forms import CommentForm, VideochatCodeForm
 
 
@@ -16,11 +16,11 @@ def home(request):
 
 
 def faq(request):
-    return render(request, 'main/faq.html', context={'faqs': FAQ.objects.all()})
+    return render(request, 'main/faq.html')
 
 
 def about(request):
-    return render(request, 'main/about.html', context={'abouts': About.objects.all()})
+    return render(request, 'main/about.html')
 
 
 class PostListView(ListView):

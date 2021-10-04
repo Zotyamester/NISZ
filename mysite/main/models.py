@@ -52,16 +52,3 @@ class Tip(models.Model):
     @staticmethod
     def get_a_tip():
         return Tip.objects.order_by('?').first()
-
-
-class About(models.Model):
-    heading = models.CharField(max_length=300)
-    paragraph = models.TextField()
-
-
-class FAQ(models.Model):
-    question = models.CharField(max_length=300)
-    answer = models.TextField()
-
-    def __str__(self):
-        return self.question

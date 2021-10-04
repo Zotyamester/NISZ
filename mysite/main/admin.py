@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Topic, Post, Comment, Tip, About, FAQ
+from .models import Topic, Post, Comment, Tip
 
 admin.AdminSite.site_title = 'NISZ'
 admin.AdminSite.site_header = 'NISZ adminisztráció'
@@ -25,6 +25,3 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Tip)
-admin.site.register(About)
-
-admin.site.register(FAQ)
