@@ -9,7 +9,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from .forms import ProfileUpdateForm, UserRegisterForm, UserUpdateForm
-from .models import Group, UserGroup
+from .models import Group, UserGroup, Event
 
 
 @login_required
@@ -116,3 +116,20 @@ class GroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         group = self.get_object()
         return self.request.user == group.owner
+
+
+@login_required
+def event_new(request):
+    if request.method == 'POST':
+        group = get_object_or_404(Group, pk=request.POST['group'])
+        if group.user_is_member(request.user):
+            event = Event(creator=request.user, group=group,
+                        title=request.POST['title'], start=request.POST['start'], end=request.POST['end'])
+            event.save()
+            messages.success(
+                request, 'Az esemény létrejött.')
+        else:
+            messages.error(
+                request, 'Nem sikerült létrehozni az eseményt.')
+        return redirect('group-detail', pk=group.id)
+    return redirect('group-list')

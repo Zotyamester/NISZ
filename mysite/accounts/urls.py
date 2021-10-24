@@ -18,4 +18,5 @@ urlpatterns = [
     path('group/<int:pk>/delete/', accounts_views.GroupDeleteView.as_view(), name='group-delete'),
     path('group/<int:pk>/leave/', accounts_views.group_leave, name='group-leave'),
     path('group/<int:pk>/join/', accounts_views.group_join, name='group-join'),
+    path('events/new/', accounts_views.event_new, name='event-new'),
 ]
