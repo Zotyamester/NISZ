@@ -46,3 +46,14 @@ class UserGroup(models.Model):
         User, on_delete=models.CASCADE, related_name='usergroups')
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     join_date = models.DateField(default=timezone.now)
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=100)
+    creator = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='events')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='events')
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    def __str__(self):
+        return 'event_%d_%s' % (self.id, self.title)
