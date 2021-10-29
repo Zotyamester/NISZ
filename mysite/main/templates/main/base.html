@@ -27,7 +27,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'main:post-list' %}">Posztok</a>
-                            <a class="dropdown-item" href="{% url 'group-list' %}">Csoportok</a>
+                            <a class="dropdown-item" href="{% url 'groups:group-base' %}">Csoportok</a>
                             <a class="dropdown-item" href="{% url 'main:faq' %}">GY.I.K.</a>
                             {% if user.is_authenticated %}
                                 <div class="dropdown-divider"></div>

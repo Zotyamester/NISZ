@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'groups/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <noscript>
+        Az oldal működéséhez engedélyeznie kell a JavaScriptet.
+    </noscript>
+    <div id="app"></div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'groups/main.js' %}"></script>
+{% endblock %}
