@@ -9,4 +9,4 @@ class CommentForm(forms.ModelForm):
 
 
 class VideochatCodeForm(forms.Form):
-    code = forms.CharField(max_length=50)
+    code = forms.CharField(max_length=50, label='Megbeszéléskód')

@@ -6,17 +6,14 @@ from django.utils import timezone
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    description = models.TextField(max_length=500, blank=True)
+    name = models.CharField('Név', max_length=50, unique=True)
+    description = models.TextField('Leírás', max_length=500, blank=True)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='owned_groups')
-    users = models.ManyToManyField(User, through='UserGroup')
+        User, verbose_name='Tulajdonos', on_delete=models.CASCADE, related_name='owned_groups')
+    users = models.ManyToManyField(User, verbose_name='Tagok', through='UserGroup')
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse('groups:group-detail', kwargs={'pk': self.pk})
 
     def get_member(self, user):
         return UserGroup.objects.filter(user=user, group=self).first()
@@ -27,9 +24,9 @@ class Group(models.Model):
 
 class UserGroup(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='usergroups')
+        User, verbose_name='Felhasználó', on_delete=models.CASCADE, related_name='usergroups')
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE)
+        Group, verbose_name='Csoport', on_delete=models.CASCADE)
     join_date = models.DateField(default=timezone.now)
 
     def __str__(self):
@@ -37,13 +34,13 @@ class UserGroup(models.Model):
 
 
 class Event(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField('Cím', max_length=100)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='events')
+        User, verbose_name='Létrehozó', on_delete=models.CASCADE, related_name='events')
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='events')
-    start = models.DateTimeField()
-    end = models.DateTimeField(validators=[])
+        Group, verbose_name='Csoport', on_delete=models.CASCADE, related_name='events')
+    start = models.DateTimeField('Kezdeti dátum')
+    end = models.DateTimeField('Végső dátum', validators=[])
 
     def __str__(self):
         return self.title

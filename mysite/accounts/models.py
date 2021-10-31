@@ -4,9 +4,9 @@ from PIL import Image
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
-    bio = models.TextField(max_length=500, blank=True)
+    user = models.OneToOneField(User, verbose_name='Felhasználó', on_delete=models.CASCADE)
+    image = models.ImageField('Profilkép', default='default.png', upload_to='profile_pics')
+    bio = models.TextField('Leírás', max_length=500, blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

@@ -1,7 +1,9 @@
+from random import choice
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Topic(models.Model):
@@ -12,12 +14,13 @@ class Topic(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=300)
+    author = models.ForeignKey(
+        User, verbose_name='Szerző', on_delete=models.CASCADE)
+    title = models.CharField('Cím', max_length=300)
     topic = models.ForeignKey(
-        Topic, on_delete=models.SET_NULL, null=True, blank=True)
-    body = models.TextField()
-    pub_date = models.DateTimeField(default=timezone.now)
+        Topic, verbose_name='Téma', on_delete=models.SET_NULL, null=True, blank=True)
+    body = models.TextField('Tartalom')
+    pub_date = models.DateTimeField('Közzétételi dátum', default=timezone.now)
 
     class Meta:
         ordering = ['-pub_date', 'author']
@@ -30,11 +33,12 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(
+        User, verbose_name='Szerző', on_delete=models.SET_NULL, null=True)
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments')
-    text = models.TextField()
-    pub_date = models.DateTimeField(default=timezone.now)
+        Post, verbose_name='Poszt', on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField('Tartalom')
+    pub_date = models.DateTimeField('Közzétételi dátum', default=timezone.now)
 
     class Meta:
         ordering = ['-pub_date', 'author']
@@ -51,4 +55,11 @@ class Tip(models.Model):
 
     @staticmethod
     def get_a_tip():
-        return Tip.objects.order_by('?').first()
+        DEFAULT_TIPS = ['Legyen mindig nyitott, akárcsak a forráskódja!',
+                        'Szabad ország, szabad szoftver!', 'Az élet szép.']
+        tip = Tip.objects.order_by('?').first()
+        if tip:
+            tip = tip.text
+        else:
+            tip = choice(DEFAULT_TIPS)
+        return tip

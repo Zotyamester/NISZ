@@ -16,18 +16,16 @@
 
 {% block content %}
     <h1 class="display-1 mb-4 text-center">Helló, Világ!</h1>
-    {% if tip %}
-        <div class="d-flex align-items-center justify-content-center">
-            <div class="input-group mb-3 w-50">
-                <div class="input-group-prepend" onmouseover="turnOn();" onmouseout="turnOff();">
-                    <span class="input-group-text bg-light border" id="lightbulb-outer"><i class="far fa-lightbulb"
-                            id="lightbulb"></i></span>
-                </div>
-                <input type="text" class="form-control font-weight-bold font-italic bg-light border text-center" value="{{ tip.text }}"
-                    disabled>
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="input-group mb-3 w-50">
+            <div class="input-group-prepend" onmouseover="turnOn();" onmouseout="turnOff();">
+                <span class="input-group-text bg-light border" id="lightbulb-outer"><i class="far fa-lightbulb"
+                        id="lightbulb"></i></span>
             </div>
+            <input type="text" class="form-control font-weight-bold font-italic bg-light border text-center" value="{{ tip }}"
+                disabled>
         </div>
-    {% endif %}
+    </div>
 
     <div class="row">
         <div class="col-md-3 my-4">
@@ -137,7 +135,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 
@@ -145,7 +142,6 @@
 {% block javascript %}
 <script>
     function turnOn() {
-        console.log('asd');
         $('#lightbulb').removeClass('far');
         $('#lightbulb').addClass('fas');
         $('#lightbulb-outer').removeClass('bg-light');
@@ -154,7 +150,6 @@
     }
 
     function turnOff() {
-        console.log('lol');
         $('#lightbulb').removeClass('fas');
         $('#lightbulb').addClass('far');
         $('#lightbulb-outer').removeClass('bg-warning');

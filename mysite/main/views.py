@@ -1,18 +1,18 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404
-from django.views.generic import (
-    ListView, DetailView,
-    CreateView, UpdateView, DeleteView
-)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Post, Comment, Tip, Topic
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
 from .forms import CommentForm, VideochatCodeForm
+from .models import Comment, Post, Tip, Topic
 
 
 def home(request):
-    return render(request, 'main/home.html', context={'tip': Tip.get_a_tip()})
+    tip = Tip.get_a_tip()
+    return render(request, 'main/home.html', context={'tip': tip})
 
 
 def faq(request):
