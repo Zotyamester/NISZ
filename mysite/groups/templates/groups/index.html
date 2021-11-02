@@ -1,10 +1,8 @@
+<base href="/" />
+
 {% extends 'main/base.html' %}
 
-{% load static %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'groups/index.css' %}">
-{% endblock %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
     <h2 class="text-center">Csoportok</h2>
@@ -16,5 +14,5 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{% static 'groups/main.js' %}"></script>
+    {% render_bundle 'groups' %}
 {% endblock %}

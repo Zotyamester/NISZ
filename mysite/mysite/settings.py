@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'groups.apps.GroupsConfig',
     'crispy_forms',
     'rest_framework',
+    'webpack_loader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,3 +140,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bethlenpython'
 EMAIL_HOST_PASSWORD = 'nekemmindegy'
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'groups/',
+        'STATS_FILE': BASE_DIR / 'groups/webpack-stats.json'
+    }
+}
