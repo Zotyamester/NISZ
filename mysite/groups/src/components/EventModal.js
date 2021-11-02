@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
 
@@ -19,8 +19,6 @@ export class EventModal extends Component {
         this.titleChange = this.titleChange.bind(this);
         this.fromChange = this.fromChange.bind(this);
         this.toChange = this.toChange.bind(this);
-
-        this.refreshState();
     }
 
     refreshState() {
@@ -47,42 +45,39 @@ export class EventModal extends Component {
     render() {
         return (
             <Modal
-                show={this.props.show}
-                onShow={this.refreshState}
-                onHide={this.props.onHide}
+                isOpen={this.props.isOpen}
+                onOpened={this.refreshState}
                 size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
             >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Esemény
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+                <ModalHeader
+                    close={<button className="close" onClick={this.props.onHide}>×</button>}
+                >
+                    Esemény
+                </ModalHeader>
+                <ModalBody>
                     <h4>{this.props.event.owner}</h4>
                     <p>
                         {this.state.title} ({this.state.from} - {this.state.to})
                     </p>
                     <Form>
-                        <Form.Group className="mb-3" controlId="formGroupEmail">
-                            <Form.Label>Esemény neve</Form.Label>
-                            <Form.Control type="text" value={this.state.title} onChange={this.titleChange} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formGroupDatetime">
-                            <Form.Label>Kezdeti dátum</Form.Label>
+                        <FormGroup className="mb-3">
+                            <Label for="title">Esemény neve</Label>
+                            <Input value={this.state.title} onChange={this.titleChange} />
+                        </FormGroup>
+                        <FormGroup className="mb-3">
+                            <Label for="startDate">Kezdeti dátum</Label>
                             <Datetime locale="hu" initialViewMode="days" updateOnView="time" value={this.state.from} onChange={this.fromChange} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formGroupDatetime">
-                            <Form.Label>Végső dátum</Form.Label>
+                        </FormGroup>
+                        <FormGroup className="mb-3">
+                            <Label for="endDate">Végső dátum</Label>
                             <Datetime locale="hu" initialViewMode="days" updateOnView="time" value={this.state.to} onChange={this.toChange} />
-                        </Form.Group>
+                        </FormGroup>
                     </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="danger">Delete</Button>
-                    <Button variant="success">Save changes</Button>
-                </Modal.Footer>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger">Delete</Button>
+                    <Button color="success">Save changes</Button>
+                </ModalFooter>
             </Modal>
         );
     }

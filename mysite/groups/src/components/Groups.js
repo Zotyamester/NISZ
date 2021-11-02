@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { InputGroup, FormControl, Card } from 'react-bootstrap';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { InputGroup, Card, CardText, CardSubtitle, CardTitle, CardBody, Badge, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import { everyGroup } from '../dummy';
@@ -12,7 +11,7 @@ export class Groups extends Component {
         super(props);
         this.state = {
             searchText: '',
-            matchingGroups: everyGroup
+            matchingGroups: [...everyGroup]
         };
         this.searchInput = this.searchInput.bind(this);
     }
@@ -28,31 +27,29 @@ export class Groups extends Component {
     render() {
         const matchingGroups = this.state.matchingGroups.map(group => (
             <Card key={group.id} className="mx-auto my-2 bg-white">
-                <Card.Body>
-                    <Card.Title>{group.name}</Card.Title>
-                    <Card.Text>
-                        <Badge bg="info">Tagok száma: <Badge bg="light" className="text-dark">{group.member_count}</Badge></Badge>
+                <CardBody>
+                    <CardTitle tag="h5">{group.name}</CardTitle>
+                    <CardSubtitle className="mb-2 text-muted" tag="h6">{group.owner}</CardSubtitle>
+                    <CardText>
+                        <Badge color="success" className="text-white">Tagok száma: <Badge color="light" className="text-success">{group.member_count}</Badge></Badge>
                         <br />
                         {group.description}
-                    </Card.Text>
+                    </CardText>
                     <Link className="btn btn-primary" to={'/groups/g/' + group.id + '/'}>Megnézem</Link>
-                </Card.Body>
+                </CardBody>
             </Card>
         ));
         return (
             <div>
-                <InputGroup className="rounded">
-                    <FormControl
+                <InputGroup className="">
+                    <Input
                         placeholder="Keresés"
-                        aria-label="Keresés"
-                        aria-describedby="search-addon"
-                        className="rounded"
                         value={this.state.searchText}
                         onChange={this.searchInput}
                     />
-                    <InputGroup.Text id="search-addon" className="border-0">
-                        <FontAwesomeIcon icon={faSearch} />
-                    </InputGroup.Text>
+                    <Link className="btn btn-primary" to="/groups/new/">
+                        <FontAwesomeIcon icon={faPlus} /> Új
+                    </Link>
                 </InputGroup>
                 <div className="mt-3">
                     {matchingGroups}

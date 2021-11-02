@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 import Calendar from 'react-awesome-calendar';
 import { EventModal, dateToString } from './EventModal';
 import 'moment/locale/hu';
@@ -54,7 +54,7 @@ export class Events extends Component {
             <div>
                 <EventModal
                     event={this.state.focusedEvent}
-                    show={this.state.modalShow}
+                    isOpen={this.state.modalShow}
                     onHide={() => this.setModalShow(false)}
                 />
                 <div className="border rounded px-4 my-2 bg-white vh-25">
