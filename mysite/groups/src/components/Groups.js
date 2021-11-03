@@ -43,6 +43,7 @@ export class Groups extends Component {
             <div>
                 <InputGroup className="">
                     <Input
+                    type="search"
                         placeholder="Keresés"
                         value={this.state.searchText}
                         onChange={this.searchInput}

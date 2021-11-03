@@ -10,6 +10,7 @@ export class EventModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: 0,
             from: '',
             to: '',
             title: '',
@@ -23,6 +24,7 @@ export class EventModal extends Component {
 
     refreshState() {
         this.setState({
+            id: this.props.event.id,
             from: this.props.event.from,
             to: this.props.event.to,
             title: this.props.event.title,
@@ -75,8 +77,15 @@ export class EventModal extends Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger">Delete</Button>
-                    <Button color="success">Save changes</Button>
+                    {
+                        (this.state.id != 0) ?
+                            <FormGroup>
+                                <Button color="danger">Törlés</Button>
+                                <Button color="success">Mentés</Button>
+                            </FormGroup>
+                            :
+                            <Button color="success">Létrehozás</Button>
+                    }
                 </ModalFooter>
             </Modal>
         );

@@ -66,7 +66,7 @@ export class Events extends Component {
                 </div>
                 <div className="my-2 d-grid gap-2">
                     <Button variant="primary" onClick={this.newEvent}>
-                        Add Event
+                        Esemény létrehozása
                     </Button>
                 </div>
             </div>

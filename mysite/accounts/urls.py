@@ -5,6 +5,7 @@ from . import views as accounts_views
 
 urlpatterns = [
     path('profile/', accounts_views.profile, name='profile'),
+    path('delete/', accounts_views.delete, name='delete'),
     path('register/', accounts_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

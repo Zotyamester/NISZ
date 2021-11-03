@@ -1,20 +1,20 @@
 {
   "status": "done",
   "assets": {
-    "groups-9951aaf6d3e1667c6b93.js": {
-      "name": "groups-9951aaf6d3e1667c6b93.js",
-      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-9951aaf6d3e1667c6b93.js",
-      "publicPath": "./static/groups/groups-9951aaf6d3e1667c6b93.js"
+    "groups-91da9f1926e55c2298d0.js": {
+      "name": "groups-91da9f1926e55c2298d0.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-91da9f1926e55c2298d0.js",
+      "publicPath": "./static/groups/groups-91da9f1926e55c2298d0.js"
     },
-    "groups-54b0db85fc4b3ff6779b.js": {
-      "name": "groups-54b0db85fc4b3ff6779b.js",
-      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-54b0db85fc4b3ff6779b.js",
-      "publicPath": "./static/groups/groups-54b0db85fc4b3ff6779b.js"
+    "groups-91da9f1926e55c2298d0.js.LICENSE.txt": {
+      "name": "groups-91da9f1926e55c2298d0.js.LICENSE.txt",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-91da9f1926e55c2298d0.js.LICENSE.txt",
+      "publicPath": "./static/groups/groups-91da9f1926e55c2298d0.js.LICENSE.txt"
     }
   },
   "chunks": {
     "groups": [
-      "groups-9951aaf6d3e1667c6b93.js"
+      "groups-91da9f1926e55c2298d0.js"
     ]
   },
   "publicPath": "./static/groups/"

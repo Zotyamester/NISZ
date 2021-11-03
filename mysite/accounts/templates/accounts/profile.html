@@ -10,7 +10,7 @@
             <i class="text-secondary align-middle">{{ user.email }}</i>
         </div>
     </div>
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Profil infó</legend>
@@ -18,7 +18,8 @@
             {{ p_form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button type="submit" class="btn btn-block btn-outline-info">Módosítás</button>
+            <button type="submit" class="btn btn-block btn-outline-secondary">Módosítás</button>
+            <button type="submit" class="btn btn-block btn-outline-danger" name="delete">Törlés</button>
         </div>
     </form>
 {% endblock %}

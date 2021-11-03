@@ -11,7 +11,9 @@ def profile(request):
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(
             request.POST, request.FILES, instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
+        if 'delete' in request.POST:
+            return redirect('delete')
+        elif u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(
@@ -25,6 +27,14 @@ def profile(request):
         'p_form': p_form
     }
     return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def delete(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('main:home')
+    return render(request, 'accounts/user_confirm_delete.html')
 
 
 def register(request):
