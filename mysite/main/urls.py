@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+from django.views.generic.base import TemplateView
+
 app_name = 'main'
 urlpatterns = [
     path('', views.home, name='home'),
@@ -22,4 +24,5 @@ urlpatterns = [
          views.CommentDeleteView.as_view(), name='comment-delete'),
     path('videochat/', views.videochat, name='videochat'),
     path('jitsi/<str:room>', views.jitsi, name='jitsi'),
+    path('privacy/', TemplateView.as_view(template_name='main/privacy.html'), name='privacy'),
 ]
