@@ -10,6 +10,10 @@
     <noscript>
         Az oldal működéséhez engedélyeznie kell a JavaScriptet.
     </noscript>
+    {% if user.is_authenticated %}
+        {% csrf_token %}
+        <input type="hidden" name="userid" value="{% user.id %}">
+    {% endif %}
     <div id="app"></div>
 {% endblock %}
 

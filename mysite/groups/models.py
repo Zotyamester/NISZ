@@ -10,7 +10,8 @@ class Group(models.Model):
     description = models.TextField('Leírás', max_length=500, blank=True)
     owner = models.ForeignKey(
         User, verbose_name='Tulajdonos', on_delete=models.CASCADE, related_name='owned_groups')
-    users = models.ManyToManyField(User, verbose_name='Tagok', through='UserGroup')
+    users = models.ManyToManyField(
+        User, verbose_name='Tagok', through='UserGroup')
 
     def __str__(self):
         return self.name

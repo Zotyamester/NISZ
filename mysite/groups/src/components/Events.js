@@ -22,6 +22,13 @@ export class Events extends Component {
         this.newEvent = this.newEvent.bind(this);
     }
 
+    componentDidMount() {
+        // let date = new Date();
+        // let firstDay = new Date(date.getUTCFullYear(), date.getUTCMonth(), 1).getTime();
+        // let lastDay = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getTime();
+        // this.props.getEvents(action.payload.id, firstDay, lastDay);
+    }
+
     setModalShow(val) {
         this.setState({ modalShow: val });
     }

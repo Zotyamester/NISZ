@@ -15,14 +15,6 @@ def home(request):
     return render(request, 'main/home.html', context={'tip': tip})
 
 
-def faq(request):
-    return render(request, 'main/faq.html')
-
-
-def about(request):
-    return render(request, 'main/about.html')
-
-
 class PostListView(ListView):
     model = Post
     ordering = ['-pub_date']

@@ -24,27 +24,3 @@ export const everyEvent = [
         owner: 'admin'
     }
 ];
-
-export const everyGroup = [
-    {
-        'id': 1,
-        'name': 'Országgyűlés',
-        'description': 'A legfontosabb intézmény az országban.',
-        'owner': 'Magyarország',
-        'member_count': 199
-    },
-    {
-        'id': 2,
-        'name': 'Fidesz-GANG',
-        'description': 'Abszurdisztán fővárosa Mutyipuszta',
-        'owner': 'Vitya',
-        'member_count': 133
-    },
-    {
-        'id': 3,
-        'name': 'Gyurcsány-SHOW',
-        'description': 'Soros-terv!',
-        'owner': 'Feri',
-        'member_count': 66
-    }
-];

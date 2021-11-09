@@ -1,20 +1,40 @@
 {
   "status": "done",
   "assets": {
-    "groups-91da9f1926e55c2298d0.js": {
-      "name": "groups-91da9f1926e55c2298d0.js",
-      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-91da9f1926e55c2298d0.js",
-      "publicPath": "./static/groups/groups-91da9f1926e55c2298d0.js"
+    "groups-7cb6a5d2f05efd830970.js": {
+      "name": "groups-7cb6a5d2f05efd830970.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-7cb6a5d2f05efd830970.js",
+      "publicPath": "./static/groups/groups-7cb6a5d2f05efd830970.js"
     },
-    "groups-91da9f1926e55c2298d0.js.LICENSE.txt": {
-      "name": "groups-91da9f1926e55c2298d0.js.LICENSE.txt",
-      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-91da9f1926e55c2298d0.js.LICENSE.txt",
-      "publicPath": "./static/groups/groups-91da9f1926e55c2298d0.js.LICENSE.txt"
+    "groups-62b710964fc47c6abf9a.js": {
+      "name": "groups-62b710964fc47c6abf9a.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-62b710964fc47c6abf9a.js",
+      "publicPath": "./static/groups/groups-62b710964fc47c6abf9a.js"
+    },
+    "groups-d3bda324f0e236fdbc36.js": {
+      "name": "groups-d3bda324f0e236fdbc36.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-d3bda324f0e236fdbc36.js",
+      "publicPath": "./static/groups/groups-d3bda324f0e236fdbc36.js"
+    },
+    "groups-3f630836fe1757fc9ed7.js": {
+      "name": "groups-3f630836fe1757fc9ed7.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-3f630836fe1757fc9ed7.js",
+      "publicPath": "./static/groups/groups-3f630836fe1757fc9ed7.js"
+    },
+    "groups-606273f5954e6ee692af.js": {
+      "name": "groups-606273f5954e6ee692af.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-606273f5954e6ee692af.js",
+      "publicPath": "./static/groups/groups-606273f5954e6ee692af.js"
+    },
+    "groups-b9d55ef26db4e2ff7128.js": {
+      "name": "groups-b9d55ef26db4e2ff7128.js",
+      "path": "E:\\NISZ\\mysite\\groups\\static\\groups\\groups-b9d55ef26db4e2ff7128.js",
+      "publicPath": "./static/groups/groups-b9d55ef26db4e2ff7128.js"
     }
   },
   "chunks": {
     "groups": [
-      "groups-91da9f1926e55c2298d0.js"
+      "groups-b9d55ef26db4e2ff7128.js"
     ]
   },
   "publicPath": "./static/groups/"

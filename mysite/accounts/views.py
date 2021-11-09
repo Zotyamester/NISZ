@@ -1,31 +1,34 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ProfileUpdateForm, UserRegisterForm, UserUpdateForm
 
 
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile)
-        if 'delete' in request.POST:
-            return redirect('delete')
-        elif u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(
-                request, 'A kért módosítások sikeresen végrehajtódtak.')
-            return redirect('profile')
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+def profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
     context = {
-        'u_form': u_form,
-        'p_form': p_form
+        'object': user
     }
+    if user == user:
+        if request.method == 'POST':
+            u_form = UserUpdateForm(request.POST, instance=user)
+            p_form = ProfileUpdateForm(
+                request.POST, request.FILES, instance=user.profile)
+            if 'delete' in request.POST:
+                return redirect('delete')
+            elif u_form.is_valid() and p_form.is_valid():
+                u_form.save()
+                p_form.save()
+                messages.success(
+                    request, 'A kért módosítások sikeresen végrehajtódtak.')
+                return redirect('profile', pk=user.id)
+        else:
+            u_form = UserUpdateForm(instance=user)
+            p_form = ProfileUpdateForm(instance=user.profile)
+        context['u_form'] = u_form
+        context['p_form'] = p_form
     return render(request, 'accounts/profile.html', context)
 
 

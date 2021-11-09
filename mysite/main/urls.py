@@ -1,13 +1,13 @@
 from django.urls import path
-from . import views
-
 from django.views.generic.base import TemplateView
+
+from . import views
 
 app_name = 'main'
 urlpatterns = [
     path('', views.home, name='home'),
-    path('faq/', views.faq, name='faq'),
-    path('about', views.about, name='about'),
+    path('faq/', TemplateView.as_view(template_name='main/faq.html'), name='faq'),
+    path('about', TemplateView.as_view(template_name='main/about.html'), name='about'),
     path('posts/', views.PostListView.as_view(), name='post-list'),
     path('posts/user/<str:username>',
          views.UserPostListView.as_view(), name='user-post-list'),
