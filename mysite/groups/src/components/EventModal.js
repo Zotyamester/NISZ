@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
+import { addEvent } from '../actions/events';
 
 export const dateToString = (date) => (date.format('YYYY.MM.DD. H:m'));
 
@@ -44,6 +45,14 @@ export class EventModal extends Component {
         this.setState({ to: dateToString(event) });
     }
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        const { title, from, to } = this.state;
+        const event = { title, from, to };
+        this.props.addEvent(event);
+        this.props.onHide();
+    };
+
     render() {
         return (
             <Modal
@@ -61,7 +70,7 @@ export class EventModal extends Component {
                     <p>
                         {this.state.title} ({this.state.from} - {this.state.to})
                     </p>
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                         <FormGroup className="mb-3">
                             <Label for="title">Esemény neve</Label>
                             <Input value={this.state.title} onChange={this.titleChange} />
@@ -92,4 +101,4 @@ export class EventModal extends Component {
     }
 }
 
-export default EventModal;
+export default connect(null, { addEvent })(EventModal);

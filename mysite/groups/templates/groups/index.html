@@ -12,7 +12,7 @@
     </noscript>
     {% if user.is_authenticated %}
         {% csrf_token %}
-        <input type="hidden" name="userid" value="{% user.id %}">
+        <input type="hidden" name="userid" value="{{ user.id }}">
     {% endif %}
     <div id="app"></div>
 {% endblock %}

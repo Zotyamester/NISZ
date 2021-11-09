@@ -22,6 +22,7 @@ export class GroupNew extends Component {
             name: '',
             description: ''
         });
+        this.props.history.push('/groups/');
     };
 
     render() {
