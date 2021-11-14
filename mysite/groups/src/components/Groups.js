@@ -13,19 +13,18 @@ export class Groups extends Component {
         this.state = {
             searchText: '',
         };
-        this.searchInput = this.searchInput.bind(this);
     }
 
     componentDidMount() {
         this.props.getGroups();
     }
 
-    searchInput(event) {
+    searchInput = (event) => {
         const text = event.target.value;
         this.setState({
             searchText: text,
         });
-    }
+    };
 
     render() {
         const groups = this.props.groups.map(group => (
@@ -38,7 +37,7 @@ export class Groups extends Component {
                         <br />
                         {group.description}
                     </CardText>
-                    <Link className="btn btn-primary" to={`/groups/g/${group.id}/`}>Megnézem</Link>
+                    <Link className="btn btn-primary" to={`/groups/g/${ group.id }/`}>Megnézem</Link>
                 </CardBody>
             </Card>
         ));

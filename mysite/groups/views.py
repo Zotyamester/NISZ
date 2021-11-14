@@ -78,12 +78,10 @@ class EventViewSet(viewsets.ModelViewSet):
             group = serializers.ChoiceField(group_choices, write_only=True)
             owner_name = serializers.ReadOnlyField(
                 source='owner.username')
-            group_name = serializers.ReadOnlyField(
-                source='group.name')
 
             class Meta:
                 model = Event
                 fields = ['id', 'title', 'group',
-                          'owner_name', 'group_name', 'start', 'end']
+                          'owner_name', 'start', 'end']
 
         return EventSerializer

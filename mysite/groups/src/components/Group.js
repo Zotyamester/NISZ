@@ -21,7 +21,7 @@ export class Group extends Component {
                     <h2 className="mb-2 text-muted">{this.props.group.owner_name}</h2>
                     <p>{this.props.group.description}</p>
                 </div>
-                <Events />
+                <Events group={this.props.group} />
             </div>
         );
     }

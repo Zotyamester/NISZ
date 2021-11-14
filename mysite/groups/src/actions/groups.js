@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 
-import { GET_GROUPS, GET_GROUP, ADD_GROUP, DELETE_GROUP, GET_EVENTS } from './types';
+import { GET_GROUPS, GET_GROUP, ADD_GROUP, DELETE_GROUP } from './types';
 import { tokenConfig } from './auth';
 
 export const getGroups = () => (dispatch) => {
