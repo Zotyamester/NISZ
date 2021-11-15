@@ -5,64 +5,53 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
 import { addEvent, deleteEvent } from '../actions/events';
+import moment from 'moment';
 
-export const dateToString = (date) => (date.format('YYYY.MM.DD. H:mm'));
+export const dateToString = (date) => (moment(date).format('YYYY.MM.DD. H:mm'));
 
 export class EventModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: 0,
-            from: '',
-            to: '',
-            title: '',
-            owner_name: ''
-        };
+        this.state = { id: 0, start: null, end: null, title: '', owner_name: '' };
     }
 
     refreshState = () => {
-        this.setState({
-            id: this.props.event.id,
-            from: this.props.event.from,
-            to: this.props.event.to,
-            title: this.props.event.title,
-            owner_name: this.props.event.owner_name
-        });
+        this.setState({ ...this.props.event });
     };
 
     titleChange = (event) => {
         this.setState({ title: event.target.value });
     };
 
-    fromChange = (event) => {
-        this.setState({ from: dateToString(event) });
+    startChange = (event) => {
+        this.setState({ start: event });
     };
 
-    toChange = (event) => {
-        this.setState({ to: dateToString(event) });
+    endChange = (event) => {
+        this.setState({ end: event });
     };
 
     addEvent = (e) => {
         e.preventDefault();
-        const { title, from, to } = this.state;
-        const event = { title, from, to };
-        this.props.addEvent = event;
+        const { title, start, end } = this.state;
+        const event = { title, start, end };
+        this.props.addEvent(event);
         this.props.onHide();
     };
 
     updateEvent = (e) => {
         e.preventDefault();
-        const { title, from, to } = this.state;
-        const event = { title, from, to };
-        this.props.updateEvent = event;
+        const { title, start, end } = this.state;
+        const event = { title, start, end };
+        this.props.updateEvent(event);
         this.props.onHide();
     };
 
     deleteEvent = (e) => {
         e.preventDefault();
-        const { title, from, to } = this.state;
-        const event = { title, from, to };
-        this.props.deleteEvent = event;
+        const { title, start, end } = this.state;
+        const event = { title, start, end };
+        this.props.deleteEvent(event);
         this.props.onHide();
     };
 
@@ -81,7 +70,7 @@ export class EventModal extends Component {
                 <ModalBody>
                     <h4>{this.state.owner_name}</h4>
                     <p>
-                        {this.state.title} ({this.state.from} - {this.state.to})
+                        {this.state.title} ({dateToString(this.state.start)} - {dateToString(this.state.end)})
                     </p>
                     <Form>
                         <FormGroup className="mb-3">
@@ -90,11 +79,11 @@ export class EventModal extends Component {
                         </FormGroup>
                         <FormGroup className="mb-3">
                             <Label for="startDate">Kezdeti dátum</Label>
-                            <Datetime locale="hu" initialViewMode="days" updateOnView="time" value={this.state.from} onChange={this.fromChange} />
+                            <Datetime locale="hu" initialViewMode="days" value={this.state.start} onChange={this.startChange} />
                         </FormGroup>
                         <FormGroup className="mb-3">
                             <Label for="endDate">Végső dátum</Label>
-                            <Datetime locale="hu" initialViewMode="days" updateOnView="time" value={this.state.to} onChange={this.toChange} />
+                            <Datetime locale="hu" initialViewMode="days" value={this.state.end} onChange={this.endChange} />
                         </FormGroup>
                     </Form>
                 </ModalBody>

@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
-import Calendar from 'react-awesome-calendar';
-import { EventModal, dateToString } from './EventModal';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import huLocale from '@fullcalendar/core/locales/hu';
+import { EventModal } from './EventModal';
 import 'moment/locale/hu';
 import moment from 'moment';
 
 import { getEvents } from '../actions/events';
+import { USERNAME } from '../actions/auth';
 
 export class Events extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalShow: false,
-            event: { id: 0, from: 0, to: 0, title: '', owner_name: '' },
+            event: { id: 0, start: null, end: null, title: '', owner_name: '' },
         };
-        this.setModalShow = this.setModalShow.bind(this);
-        this.setAndShowEvent = this.setAndShowEvent.bind(this);
-        this.editEvent = this.editEvent.bind(this);
-        this.newEventFromTimeline = this.newEventFromTimeline.bind(this);
-        this.newEvent = this.newEvent.bind(this);
     }
 
     componentDidMount() {
@@ -33,26 +32,25 @@ export class Events extends Component {
     };
 
     setAndShowEvent = (event) => {
-        this.setState({ event: { id: event.id, from: event.from, to: event.to, title: event.title, owner_name: event.owner_name } });
+        this.setState({ event: event });
         this.setModalShow(true);
     };
 
-    editEvent = (id) => {
-        this.setAndShowEvent(this.props.events.filter(event => event.id == id)[0]);
+    editEvent = (info) => {
+        const e = info.event;
+        const event = { id: e.extendedProps.id, start: e.start, end: e.end, title: e.title, owner_name: e.extendedProps.owner_name };
+        this.setAndShowEvent(event);
     };
 
     newEventFromTimeline = (date) => {
-        console.log(date.month);
-        const from = moment(`${ date.year }.${ date.month }.${ date.day }. ${ Math.floor(date.hour) }:${ Math.floor(date.hour % 1 * 60) }`, 'Y.M.D. H:m');
-        const to = from.clone().add(1, 'hours');
-        const event = { id: 0, from: dateToString(from), to: dateToString(to), title: 'Névtelen', owner_name: 'admin' };
+        const event = { id: 0, start: date.start, end: date.end, title: 'Névtelen', owner_name: USERNAME };
         this.setAndShowEvent(event);
     };
 
     newEvent = () => {
-        const from = moment();
-        const to = from.clone().add(1, 'hours');
-        const event = { id: 0, from: dateToString(from), to: dateToString(to), title: 'Névtelen', owner_name: 'admin' };
+        const start = moment();
+        const end = start.clone().add(1, 'hours');
+        const event = { id: 0, start: start.toDate(), end: end.toDate(), title: 'Névtelen', owner_name: USERNAME };
         this.setAndShowEvent(event);
     };
 
@@ -64,11 +62,16 @@ export class Events extends Component {
                     isOpen={this.state.modalShow}
                     onHide={() => this.setModalShow(false)}
                 />
-                <div className="border rounded px-4 my-2 bg-white vh-25">
-                    <Calendar
+                <div className="border rounded p-4 my-2 bg-white">
+                    <FullCalendar
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        initialView="dayGridMonth"
+                        locales={[huLocale]}
+                        locale="hu"
+                        selectable={true}
                         events={this.props.events}
-                        onClickEvent={this.editEvent}
-                        onClickTimeLine={this.newEventFromTimeline}
+                        eventClick={this.editEvent}
+                        select={this.newEventFromTimeline}
                     />
                 </div>
                 <div className="my-2 d-grid gap-2">
