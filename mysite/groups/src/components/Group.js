@@ -5,9 +5,6 @@ import { getGroup } from '../actions/groups';
 import { Events } from './Events';
 
 export class Group extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.getGroup(this.props.match.params.id);

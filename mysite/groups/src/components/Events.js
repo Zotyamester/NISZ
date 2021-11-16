@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 import huLocale from '@fullcalendar/core/locales/hu';
 import { EventModal } from './EventModal';
 import 'moment/locale/hu';
@@ -43,7 +44,7 @@ export class Events extends Component {
     };
 
     newEventFromTimeline = (date) => {
-        const event = { id: 0, start: date.start, end: date.end, title: 'Névtelen', owner_name: USERNAME };
+        const event = { id: 0, start: date.start, end: date.end - 1, title: 'Névtelen', owner_name: USERNAME };
         this.setAndShowEvent(event);
     };
 
@@ -64,8 +65,9 @@ export class Events extends Component {
                 />
                 <div className="border rounded p-4 my-2 bg-white">
                     <FullCalendar
-                        plugins={[dayGridPlugin, interactionPlugin]}
+                        plugins={[dayGridPlugin, interactionPlugin, bootstrapPlugin]}
                         initialView="dayGridMonth"
+                        themeSystem="bootstrap"
                         locales={[huLocale]}
                         locale="hu"
                         selectable={true}
