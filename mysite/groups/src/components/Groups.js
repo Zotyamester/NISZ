@@ -8,12 +8,10 @@ import { connect } from 'react-redux';
 import { getGroups } from '../actions/groups';
 
 export class Groups extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchText: '',
-        };
-    }
+
+    state = {
+        searchText: '',
+    };
 
     componentDidMount() {
         this.props.getGroups();
@@ -24,6 +22,7 @@ export class Groups extends Component {
         this.setState({
             searchText: text,
         });
+        this.props.getGroups(text);
     };
 
     render() {
@@ -37,7 +36,7 @@ export class Groups extends Component {
                         <br />
                         {group.description}
                     </CardText>
-                    <Link className="btn btn-primary" to={`/groups/g/${ group.id }/`}>Megnézem</Link>
+                    <Link className="btn btn-primary" to={`/groups/g/${group.id}/`}>Megnézem</Link>
                 </CardBody>
             </Card>
         ));

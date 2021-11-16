@@ -4,9 +4,10 @@ import { createMessage, returnErrors } from './messages';
 import { GET_GROUPS, GET_GROUP, ADD_GROUP, DELETE_GROUP } from './types';
 import { tokenConfig } from './auth';
 
-export const getGroups = () => (dispatch) => {
+export const getGroups = (q = '') => (dispatch) => {
+    q = q.trim();
     axios
-        .get('/api/groups/')
+        .get(`/api/groups/${(q != '') ? '?q=' + encodeURIComponent(q) : ''}`)
         .then((res) => {
             dispatch({
                 type: GET_GROUPS,

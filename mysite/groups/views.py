@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import serializers, status, viewsets
 from rest_framework.decorators import action
@@ -13,8 +14,15 @@ from .serializers import GroupDetailSerializer, GroupListSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        queryset = Group.objects.all()
+        if self.action == 'list':
+            q = self.request.query_params.get('q')
+            if q:
+                queryset = queryset.filter(Q(name__icontains=q) | Q(description__icontains=q))
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'list':

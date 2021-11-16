@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'groups', views.GroupViewSet)
+router.register(r'groups', views.GroupViewSet, basename='group')
 router.register(r'events', views.EventViewSet, basename='event')
 
 app_name = 'groups'

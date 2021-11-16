@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import (CreateView, DeleteView, ListView,
                                   UpdateView)
-
+from django.urls import reverse
 from .forms import CommentForm, VideochatCodeForm
 from .models import Comment, Post, Tip, Topic
 
@@ -118,7 +118,9 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('main:post-detail', kwargs={'pk': self.object.post.pk})
 
     def test_func(self):
         comment = self.get_object()

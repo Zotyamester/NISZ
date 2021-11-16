@@ -17,6 +17,7 @@ export class GroupNew extends Component {
         e.preventDefault();
         const { name, description } = this.state;
         const group = { name, description };
+        console.log(this.props);
         this.props.addGroup(group);
         this.setState({
             name: '',

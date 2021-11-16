@@ -10,10 +10,13 @@ import moment from 'moment';
 export const dateToString = (date) => (moment(date).format('YYYY.MM.DD. H:mm'));
 
 export class EventModal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { id: 0, start: null, end: null, title: '', owner_name: '' };
-    }
+    state = {
+        id: 0,
+        start: null,
+        end: null,
+        title: '',
+        owner_name: '',
+    };
 
     refreshState = () => {
         this.setState({ ...this.props.event });
@@ -31,23 +34,24 @@ export class EventModal extends Component {
         this.setState({ end: event });
     };
 
-    addEvent = (e) => {
+    onAddEvent = (e) => {
         e.preventDefault();
         const { title, start, end } = this.state;
         const event = { title, start, end };
+        console.log(this.props);
         this.props.addEvent(event);
         this.props.onHide();
     };
 
-    updateEvent = (e) => {
+    onUpdateEvent = (e) => {
         e.preventDefault();
         const { title, start, end } = this.state;
         const event = { title, start, end };
-        this.props.updateEvent(event);
+        //this.props.updateEvent(event);
         this.props.onHide();
     };
 
-    deleteEvent = (e) => {
+    onDeleteEvent = (e) => {
         e.preventDefault();
         const { title, start, end } = this.state;
         const event = { title, start, end };
@@ -79,11 +83,33 @@ export class EventModal extends Component {
                         </FormGroup>
                         <FormGroup className="mb-3">
                             <Label for="startDate">Kezdeti dátum</Label>
-                            <Datetime locale="hu" initialViewMode="days" value={this.state.start} onChange={this.startChange} />
+                            <Datetime
+                                locale="hu"
+                                initialViewMode="days"
+                                value={this.state.start}
+                                onChange={this.startChange}
+                                isValidDate={(cur, sel) => cur <= this.state.end}
+                                timeConstraints={
+                                    {
+                                        hours: { max: moment(this.state.end).hour() },
+                                        minutes: { max: moment(this.state.end).minutes() },
+                                    }
+                                } />
                         </FormGroup>
                         <FormGroup className="mb-3">
                             <Label for="endDate">Végső dátum</Label>
-                            <Datetime locale="hu" initialViewMode="days" value={this.state.end} onChange={this.endChange} />
+                            <Datetime
+                                locale="hu"
+                                initialViewMode="days"
+                                value={this.state.end}
+                                onChange={this.endChange}
+                                isValidDate={(cur, sel) => cur >= this.state.start}
+                                timeConstraints={
+                                    {
+                                        hours: { min: moment(this.state.start).hour() },
+                                        minutes: { min: moment(this.state.start).minutes() },
+                                    }
+                                } />
                         </FormGroup>
                     </Form>
                 </ModalBody>
@@ -91,11 +117,11 @@ export class EventModal extends Component {
                     {
                         (this.state.id != 0) ?
                             <FormGroup>
-                                <Button color="danger" type="button" onClick={this.deleteEvent}>Törlés</Button>
-                                <Button color="success" type="button" onClick={this.updateEvent}>Mentés</Button>
+                                <Button color="danger" type="button" onClick={this.onDeleteEvent}>Törlés</Button>
+                                <Button color="success" type="button" onClick={this.onUpdateEvent}>Mentés</Button>
                             </FormGroup>
                             :
-                            <Button color="success" type="button" onClick={this.addEvent}>Létrehozás</Button>
+                            <Button color="success" type="button" onClick={this.onAddEvent}>Létrehozás</Button>
                     }
                 </ModalFooter>
             </Modal>

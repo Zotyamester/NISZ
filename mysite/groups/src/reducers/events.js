@@ -5,12 +5,20 @@ const initialState = {
     event: {},
 };
 
+const transformDateFormat = (json) => {
+    return {
+        ...json,
+        start: new Date(json.start),
+        end: new Date(json.end),
+    };
+}
+
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_EVENTS:
             return {
                 ...state,
-                events: [...state.events, ...action.payload],
+                events: [...state.events, action.payload.map(transformDateFormat)],
             };
         case ADD_EVENT:
             return {
@@ -20,7 +28,7 @@ export default function (state = initialState, action) {
         case GET_EVENT:
             return {
                 ...state,
-                event: action.payload,
+                event: transformDateFormat(action.payload),
             };
         case DELETE_EVENT:
             return {

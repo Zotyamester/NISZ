@@ -15,7 +15,6 @@ export default function (state = initialState, action) {
         case ADD_GROUP:
             return {
                 ...state,
-                groups: [...state.groups, action.payload],
             };
         case GET_GROUP:
             return {
