@@ -16,10 +16,9 @@
         <form method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Felhasználói adatok</legend>
-                {{ u_form|crispy }}
-                {{ c_form|crispy }}
                 <legend class="border-bottom mb-4">Profil adatok</legend>
+                {{ u_form|crispy }}
+                <a href="{% url 'password_change' %}" class="btn btn-outline-dark btn-sm mb-2">Jelszóváltoztatás</a>
                 {{ p_form|crispy }}
             </fieldset>
             <div class="form-group">
