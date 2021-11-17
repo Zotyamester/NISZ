@@ -21,7 +21,8 @@ class GroupViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             q = self.request.query_params.get('q')
             if q:
-                queryset = queryset.filter(Q(name__icontains=q) | Q(description__icontains=q))
+                queryset = queryset.filter(
+                    Q(name__icontains=q) | Q(description__icontains=q))
         return queryset
 
     def get_serializer_class(self):

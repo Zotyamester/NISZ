@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="media mb-4">
+    <div class="media pt-2 mb-4">
         <div id="img-container" class="pr-4 mr-4 border-right">
             <img class="img-fluid rounded-circle account-img float-md-right" src="{{ object.profile.image.url }}">
         </div>
@@ -16,8 +16,10 @@
         <form method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profil infó</legend>
+                <legend class="border-bottom mb-4">Felhasználói adatok</legend>
                 {{ u_form|crispy }}
+                {{ c_form|crispy }}
+                <legend class="border-bottom mb-4">Profil adatok</legend>
                 {{ p_form|crispy }}
             </fieldset>
             <div class="form-group">

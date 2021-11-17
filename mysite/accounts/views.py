@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -11,23 +13,28 @@ def profile(request, pk):
     context = {
         'object': user
     }
-    if user == user:
+    if user == request.user:
         if request.method == 'POST':
             u_form = UserUpdateForm(request.POST, instance=user)
+            c_form = PasswordChangeForm(request.POST, user=user)
             p_form = ProfileUpdateForm(
                 request.POST, request.FILES, instance=user.profile)
             if 'delete' in request.POST:
                 return redirect('delete')
-            elif u_form.is_valid() and p_form.is_valid():
+            elif u_form.is_valid() and c_form.is_valid() and p_form.is_valid():
                 u_form.save()
+                c_form.save()
+                update_session_auth_hash(request, user)
                 p_form.save()
                 messages.success(
                     request, 'A kért módosítások sikeresen végrehajtódtak.')
                 return redirect('profile', pk=user.id)
         else:
             u_form = UserUpdateForm(instance=user)
+            c_form = PasswordChangeForm(user=user)
             p_form = ProfileUpdateForm(instance=user.profile)
         context['u_form'] = u_form
+        context['c_form'] = c_form
         context['p_form'] = p_form
     return render(request, 'accounts/profile.html', context)
 
